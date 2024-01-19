@@ -1,0 +1,25 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+  url      = "mysql://root:1357.modanesi@localhost:3306/systemtask"
+}
+
+model CreateMessages {
+    id      Int         @id @default(autoincrement())
+    name    String      @default("")
+    email   String      @unique
+    subject String
+    userId  Int?
+    user    CreateUser? @relation(fields: [userId], references: [id])
+}
+
+model CreateUser {
+    id       Int              @id @default(autoincrement())
+    email    String           @unique
+    password String
+    admin    Boolean
+    messages CreateMessages[]
+}

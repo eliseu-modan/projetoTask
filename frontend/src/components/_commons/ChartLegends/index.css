@@ -1,0 +1,16 @@
+.chart-legends .ant-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.chart-legends .ant-col .item-symbol {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.chart-legends .ant-col .item-label {
+    font-size: 14px;
+    color: black;
+}

@@ -1,0 +1,107 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Montserrat", sans-serif;
+}
+
+body {
+	color: #353839;
+	background-color: #f0f2f5;
+	--sb-track-color: #232e33;
+	--sb-thumb-color: #005286;
+	--sb-size: 8px;
+
+	scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+.layout-content-height {
+	height: calc(100vh - 96px);
+	overflow: hidden;
+	padding-bottom: 24px;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.margin-bottom {
+	margin-bottom: 24px;
+}
+
+.position-sticky {
+	position: sticky;
+	top: 64px;
+}
+
+.width-100 {
+	width: 100%;
+}
+
+.container {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+::-webkit-scrollbar {
+	width: var(--sb-size);
+}
+
+::-webkit-scrollbar-track {
+	background: var(--sb-track-color);
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: var(--sb-thumb-color);
+	border-radius: 2px;
+}
+
+#editButtonCancel{
+	position: absolute;
+    left: 40%;
+	top: 0px;
+	opacity: 70%;
+}
+
+/* Adicione suas próprias estilizações personalizadas aqui */
+/* Estilos para o formulário como um todo */
+.custom-form {
+	max-width: 400px;
+	margin: auto;
+  }
+  
+  /* Estilos para os campos de entrada (Input) */
+  .custom-input {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+  }
+  
+  /* Estilos para a área de texto (TextArea) */
+  .custom-textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	box-sizing: border-box;
+  }
+  
+  /* Estilos para os botões (Button) */
+  .custom-button {
+	margin-right: 10px;
+  }

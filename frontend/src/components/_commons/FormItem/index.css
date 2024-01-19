@@ -1,0 +1,52 @@
+.common-form-item.no-margin {
+    margin-bottom: 0px;
+}
+.common-form-item.ant-form-item {
+    position: relative !important;
+}
+.common-form-item.ant-form-item.active .ant-form-item-label {
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.common-form-item.ant-form-item.active .ant-form-item-label label {
+    font-size: 12px;
+    color: gray;
+}
+.common-form-item.ant-form-item.active input, .common-form-item.ant-form-item.active .ant-select-selection-item {
+    line-height: 22px;
+    padding-top: 13px;
+    padding-bottom: 3px;
+}
+.common-form-item.ant-form-item .ant-form-item-label {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+.common-form-item.ant-form-item .ant-form-item-label.ant-col {
+    padding: 3px 11px;
+}
+.common-form-item.ant-form-item .ant-form-item-label label {
+    z-index: 2;
+    transition: font-size, color, ;
+    height: auto;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.common-form-item.ant-form-item .ant-input {
+    height: 40px;
+}
+.common-form-item.ant-form-item .ant-picker {
+    height: 40px;
+    padding: 0 11px 0;
+}
+.common-form-item.ant-form-item .ant-picker-input input:placeholder-shown {
+    opacity: 0;
+}
+.common-form-item.ant-form-item .ant-input-affix-wrapper {
+    padding: 0px 11px;
+}
+.common-form-item.has-picker .ant-form-item-label label {
+    padding-right: 18px;
+}

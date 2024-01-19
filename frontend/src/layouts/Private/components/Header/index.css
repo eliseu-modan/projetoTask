@@ -1,0 +1,38 @@
+.private-header {
+	background-color: #fff !important;
+	transition: all 0.5s;
+}
+.private-header.-fixed {
+	position: fixed;
+	top: 0px;
+	z-index: 10;
+	width: 100%;
+}
+.private-header.-overlaid {
+	z-index: 10;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.private-header > .ant-row {
+	height: 100%;
+}
+.private-header .header-page-title {
+	position: absolute;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.private-header .header-page-title h2 {
+	margin: 0;
+	transition: transform;
+}
+
+.private-header .header-brand {
+	height: 40px;
+	transition: height;
+}
+
+.private-header .header-left,
+.private-header .header-right {
+	z-index: 1;
+}
