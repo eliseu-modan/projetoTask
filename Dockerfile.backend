@@ -1,0 +1,27 @@
+# Dockerfile para construir o backend
+FROM node:16-alpine AS frontend-builder
+
+# Configuração do diretório de trabalho
+WORKDIR /backend
+
+# Instalação do git e dependências necessárias
+RUN apk --no-cache add git openssh-client
+
+# Copiar apenas os arquivos necessários para instalar as dependências
+COPY backend/package.json .
+
+# Instalar as dependências
+RUN npm install --save
+# Copiar o restante dos arquivos do frontend
+COPY backend .
+
+# Construir a aplicação frontend
+RUN npm build
+
+# Estágio final para criar a imagem do aplicativo
+FROM nginx:alpine
+
+# Copiar os arquivos construídos do estágio anterior
+COPY --from=backend-builder backend/ /usr/share/nginx/html
+
+# Configuração adicional conforme necessário
