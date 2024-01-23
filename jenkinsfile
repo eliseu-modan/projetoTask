@@ -10,6 +10,16 @@ pipeline {
 }
 }
         }
+         stage('Build da imagem Docker backend') {
+            steps {
+                script {
+                 sh 'docker buildx build -t backend -f Dockerfile.backend .'
+            
+}
+}
+        }
+
+
 
     }
 }
