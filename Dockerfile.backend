@@ -1,5 +1,5 @@
 # Dockerfile para construir o backend
-FROM node:16-alpine AS backend-builder
+FROM node:14-alpine AS backend-builder
 
 # Configuração do diretório de trabalho
 WORKDIR /backend
@@ -12,16 +12,15 @@ COPY backend/package.json .
 
 # Instalar as dependências
 RUN npm install --save
-# Copiar o restante dos arquivos do frontend
+
+# Copiar o restante dos arquivos do backend
 COPY backend .
 
-# Construir a aplicação frontend
-RUN npm run build
-
 # Estágio final para criar a imagem do aplicativo
-FROM nginx:alpine
+FROM node:14-alpine
 
 # Copiar os arquivos construídos do estágio anterior
-COPY --from=backend-builder backend/ /usr/share/nginx/html
+COPY --from=backend-builder /backend /app
 
 # Configuração adicional conforme necessário
+WORKDIR /app
