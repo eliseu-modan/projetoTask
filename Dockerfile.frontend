@@ -8,8 +8,7 @@ WORKDIR /frontend
 COPY frontend/package.json .
 
 # Instalar as dependências
-RUN yarn add .
-
+npm install
 # Copiar o restante dos arquivos do frontend
 COPY frontend .
 
