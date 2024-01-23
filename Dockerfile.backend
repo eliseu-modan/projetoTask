@@ -16,7 +16,7 @@ RUN npm install --save
 COPY backend .
 
 # Construir a aplicação frontend
-RUN npm build
+RUN npm run build
 
 # Estágio final para criar a imagem do aplicativo
 FROM nginx:alpine
