@@ -12,7 +12,8 @@ pipeline {
         stage('Subir docker compose tasks') {
             steps {
                 script {
-                    sh 'docker-compose up --build -d'
+                    sh 'docker build -t devops/app -f dockerfile .'
+
                 }
             }
         }
