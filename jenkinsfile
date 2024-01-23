@@ -9,7 +9,7 @@ pipeline {
             }
         }
 
-        stage('Subir docker compose - redis e app') {
+        stage('Subir docker compose tasks') {
             steps {
                 script {
                     sh 'docker-compose up --build -d'
