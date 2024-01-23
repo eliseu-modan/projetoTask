@@ -8,13 +8,13 @@ services:
       - "5173:5173"
     # outras configurações específicas do frontend
 
-  #backend:
-   # build:
-    #  context: .
-     # dockerfile: dockerfile
-    #ports:
-     # - "3333:3333"
-    # outras configurações específicas do backend
+  backend:
+   build:
+     context: .
+     dockerfile: Dockerfile.frontend
+    ports:
+      - "3333:3333"
+    #outras configurações específicas do backend
 
   #prisma-studio:
    # image: dockerfile  # Use a mesma imagem do backend
