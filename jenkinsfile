@@ -8,6 +8,7 @@ pipeline {
                     docker buildx build -t frontend -f Dockerfile.frontend .
                 }
             }
+}
         }
 
     }
