@@ -1,13 +1,6 @@
 pipeline {
     agent any
     stages {
-    #stage('Build da imagem Docker Backend') {
-          #steps {
-                #script {
-                    #sh 'docker build -t devops/backend -f backend/Dockerfile.backend ./backend'
-                #}
-            #}
-        #}
 
         stage('Build da imagem Docker Frontend') {
             steps {
@@ -17,7 +10,5 @@ pipeline {
             }
         }
 
-        // Adicione outras etapas conforme necessário
     }
 }
-
