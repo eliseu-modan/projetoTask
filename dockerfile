@@ -22,11 +22,11 @@
 #RUN npx prisma generate
 
 # Copiar código-fonte do diretório local para o contêiner (frontend)
-WORKDIR /app
-COPY ../frontend /app/frontend
+WORKDIR /front
+COPY ../frontend /front
 
 # Configuração e instalação do frontend
-WORKDIR /app/frontend
+WORKDIR /front
 RUN npm install
 EXPOSE 5173
 
