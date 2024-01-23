@@ -1,4 +1,4 @@
-# Stage 1: Backend
+# Dockerfile.backend-frontend
 FROM node:16-alpine AS backend
 WORKDIR /app
 RUN apk update && apk add --no-cache git
@@ -18,9 +18,8 @@ ENV MYSQL_PASSWORD=1357.modanesi
 RUN chmod +x /app/backend/node_modules/.bin/prisma
 RUN npx prisma generate
 
-# CMD ["npm", "run", "dev:server"]
+CMD ["npm", "run", "dev:server"]
 
-# Stage 2: Frontend
 FROM node:14-alpine AS frontend
 # Instalação do Git e configuração do ambiente de trabalho
 RUN apk update && apk add --no-cache git
@@ -40,4 +39,3 @@ EXPOSE 5173
 
 # Comando de inicialização para o frontend (ajuste conforme necessário)
 CMD ["yarn", "dev", "--host"]
-
