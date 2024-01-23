@@ -7,7 +7,7 @@ EXPOSE 3333
 WORKDIR /app/backend
 RUN npm install
 
-# Conceder permissões de execução ao nodemon
+# Conceder permissões de execução ao nod
 RUN chmod +x /app/backend/node_modules/.bin/nodemon
 RUN apk add --no-cache mysql-client mysql
 ENV MYSQL_ROOT_PASSWORD=root
