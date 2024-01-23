@@ -19,6 +19,23 @@ pipeline {
 }
         }
 
+stage('Subir docker compose - tasks') {
+            steps {
+                script {
+                    sh 'docker-compose up --build -d'
+                }
+            }
+        }
+
+        stage('Aguardar subida dos containers') {
+            steps {
+                script {
+                    sh 'sleep 10'
+                }
+            }
+        }
+
+
 
 
     }
