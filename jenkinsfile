@@ -1,45 +1,23 @@
 pipeline {
     agent any
     stages {
-        stage('Build do Frontend') {
-           steps {
-               script {
-                    sh 'docker build -t app -f ../Dockerfile.frontend .'
+    #stage('Build da imagem Docker Backend') {
+          #steps {
+                #script {
+                    #sh 'docker build -t devops/backend -f backend/Dockerfile.backend ./backend'
+                #}
+            #}
+        #}
+
+        stage('Build da imagem Docker Frontend') {
+            steps {
+                script {
+                    sh 'docker build -t devops/frontend -f frontend/Dockerfile.frontend ./frontend'
+                }
+            }
         }
+
+        // Adicione outras etapas conforme necessário
     }
 }
 
-        stage('Subir docker compose tasks') {
-            steps {
-                script {
-                    sh 'docker build -t devops/app -f dockerfile .'
-
-                }
-            }
-        }
-
-        stage('Aguardar subida dos containers tasks') {
-            steps {
-                script {
-                    sh 'sleep 10'
-                }
-            }
-        }
-
-        // stage('Teste da aplicação') {
-        //     steps {
-                
-        //             sh 'chmod +x teste-app.sh'
-        //             sh './teste-app.sh'
-                
-        //     }
-        // }
-         stage('Eliminar os containers de teste') {
-            steps {
-                script {
-                    sh 'docker-compose down'
-                }
-            }
-        }
-    }
-}
