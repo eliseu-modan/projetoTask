@@ -6,7 +6,6 @@ WORKDIR /frontend
 
 # Copiar apenas os arquivos necessários para instalar as dependências
 COPY frontend/package.json .
-COPY frontend/yarn.lock .
 
 # Instalar as dependências
 RUN yarn install
