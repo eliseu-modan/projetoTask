@@ -5,9 +5,9 @@ pipeline {
         stage('Build da imagem Docker Frontend') {
             steps {
                 script {
-                    docker buildx build -t frontend -f Dockerfile.frontend .
-                }
-            }
+                  '  docker buildx build -t frontend -f Dockerfile.frontend .'
+            
+}
 }
         }
 
