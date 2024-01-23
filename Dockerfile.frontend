@@ -1,0 +1,26 @@
+# Dockerfile para construir o frontend
+FROM node:14-alpine AS frontend-builder
+
+# Configuração do diretório de trabalho
+WORKDIR /frontend
+
+# Copiar apenas os arquivos necessários para instalar as dependências
+COPY frontend/package.json .
+COPY frontend/yarn.lock .
+
+# Instalar as dependências
+RUN yarn install
+
+# Copiar o restante dos arquivos do frontend
+COPY frontend .
+
+# Construir a aplicação frontend
+RUN yarn build
+
+# Estágio final para criar a imagem do aplicativo
+FROM nginx:alpine
+
+# Copiar os arquivos construídos do estágio anterior
+COPY --from=frontend-builder /app/frontend/build /usr/share/nginx/html
+
+# Configuração adicional conforme necessário

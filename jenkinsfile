@@ -1,13 +1,13 @@
 pipeline {
     agent any
     stages {
-        stage('Build da imagem Docker') {
-            steps {
-                script {
-                    sh 'docker build -t devops/app .'
-                }
-            }
+        stage('Build do Frontend') {
+           steps {
+               script {
+                    sh 'docker build -t app -f ../Dockerfile.frontend .'
         }
+    }
+}
 
         stage('Subir docker compose tasks') {
             steps {
