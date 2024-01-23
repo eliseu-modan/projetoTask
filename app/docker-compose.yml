@@ -1,0 +1,22 @@
+version: '3'
+services:
+  frontend:
+    image: apptask
+    ports:
+      - "5173:5173"
+    # outras configurações específicas do frontend
+
+  backend:
+    image: apptaskbackend
+    ports:
+      - "3333:3333"
+    # outras configurações específicas do backend
+    command: ["npm", "run", "dev:server"]
+
+  prisma-studio:
+    image: apptaskbackend  # Use a mesma imagem do backend
+    command: ["npx", "prisma", "studio"]
+    ports:
+      - "5555:5555"  # Porta em que o Prisma Studio será acessível
+    depends_on:
+      - backend

@@ -1,0 +1,20 @@
+FROM node:16-alpine AS backend
+WORKDIR /app
+RUN apk update && apk add --no-cache git
+RUN git clone https://github.com/eliseu-modan/projetoTask.git /app
+EXPOSE 3333
+WORKDIR /app/backend
+RUN npm install
+
+# Conceder permissões de execução ao nodemon
+RUN chmod +x /app/backend/node_modules/.bin/nodemon
+RUN apk add --no-cache mysql-client mysql
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=app
+ENV MYSQL_USER=junior
+ENV MYSQL_PASSWORD=1357.modanesi
+
+RUN chmod  +x /app/backend/node_modules/.bin/prisma
+RUN npx prisma generate
+
+CMD ["npm", "run", "dev:server"]

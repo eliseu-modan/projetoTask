@@ -9,7 +9,7 @@ import {
 	PlusOutlined,
 	UnorderedListOutlined,
 } from "@ant-design/icons";
-import { EmployeesListPage, EmployeesCreatePage } from "../pages/Tasks";
+import { EmployeesListPage, EmployeesCreatePage } from "../pages/tasks";
 import { LoginPage, ErrorPage, DashoardPage, CardsPage } from "../pages";
 import { formatRoutes } from "./utils";
 import CustomLayout from "../layouts/Custom";

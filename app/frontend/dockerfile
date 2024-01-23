@@ -1,0 +1,21 @@
+FROM node:14-alpine AS frontend
+
+# Instalação do Git e configuração do ambiente de trabalho
+RUN apk update && apk add --no-cache git
+WORKDIR /app/front
+
+# Clone do tório Git e configuração do ambiente
+RUN git clone https://github.com/eliseu-modan/projetoTask.git .
+
+# Navega até o diretório do frontend
+WORKDIR /app/front/frontend
+
+# Instalação das dependências
+RUN npm install
+
+
+# Expor a porta necessária para o frontend (substitua pela porta correta se necessário)
+EXPOSE 5173
+
+# Comando de inicialização para o frontend (ajuste conforme necessário)
+CMD ["yarn", "dev", "--host"]
