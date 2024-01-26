@@ -1,6 +1,27 @@
 pipeline {
     agent any
     stages {
+        stage('Criar Dockerfile.combined') {
+            steps {
+                script {
+                    def dockerfileContent = """
+                        # Dockerfile.combined gerado dinamicamente
+                        FROM backend
+                        COPY ./combined /app
+                    """
+                    def dockerfilePath = "${env.WORKSPACE}/Dockerfile.combined"
+
+                    // Verifica se o arquivo existe e o exclui se existir
+                    if (fileExists(dockerfilePath)) {
+                        sh "rm ${dockerfilePath}"
+                    }
+
+                    // Cria o novo Dockerfile.combined
+                    writeFile file: dockerfilePath, text: dockerfileContent
+                }
+            }
+        }
+
         stage('Build da imagem Docker') {
             steps {
                 script {
@@ -18,11 +39,11 @@ pipeline {
                     sh 'docker cp fronte:/frontend/ combined'
                     sh 'docker cp backe:/backend/ combined'
                     
-                    // Criar uma imagem combinada
+                    // Construir a imagem combinada
                     sh 'docker build -t combined -f Dockerfile.combined .'
                     
                     // Remover contêineres temporários
-                    sh 'docker rm frontend-container backend-container'
+                    sh 'docker rm fronte backe'
                 }
             }
         }
