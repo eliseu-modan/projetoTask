@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-    command: npm start
+    command: yarn dev --host
     ports:
       - "5173:5173"
     # outras configurações específicas do frontend
