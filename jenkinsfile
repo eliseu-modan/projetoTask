@@ -1,14 +1,5 @@
 pipeline {
     agent any
-    stages {
-        stage('Build da imagem Docker Frontend') {
-            steps {
-                script {
-                    sh 'docker buildx build -t frontend -f Dockerfile.frontend .'
-                }
-            }
-        }
-
         stage('Build da imagem Docker Backend') {
             steps {
                 script {
@@ -20,11 +11,9 @@ pipeline {
         stage('Combine imagens em um contêiner') {
             steps {
                 script {
-                    sh 'docker create --name frontend-container frontend'
                     sh 'docker create --name backend-container backend'
-                    sh 'docker cp frontend-container:/app/frontend/ combined'
                     sh 'docker cp backend-container:/app/backend/ combined'
-                    sh 'docker rm frontend-container backend-container'
+                    sh 'docker rm  backend-container'
                 }
             }
         }
