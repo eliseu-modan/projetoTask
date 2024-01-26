@@ -11,12 +11,12 @@ pipeline {
                     sh 'docker buildx build -t frontend -f Dockerfile.frontend .'
                     
                     // Criar contêineres temporários para cópia de artefatos
-                    sh 'docker create --name front frontend'
-                    sh 'docker create --name back backend'
+                    sh 'docker create --name fronte frontend'
+                    sh 'docker create --name backe backend'
                     
                     // Copiar artefatos do frontend e do backend para o diretório 'combined'
-                    sh 'docker cp front:/frontend/ combined'
-                    sh 'docker cp back:/backend/ combined'
+                    sh 'docker cp fronte:/frontend/ combined'
+                    sh 'docker cp backe:/backend/ combined'
                     
                     // Criar uma imagem combinada
                     sh 'docker build -t combined -f Dockerfile.combined .'
