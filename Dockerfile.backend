@@ -16,11 +16,3 @@ RUN npm install --save
 # Copiar o restante dos arquivos do backend
 COPY backend .
 
-# Estágio final para criar a imagem do aplicativo
-FROM node:14-alpine
-
-# Copiar os arquivos construídos do estágio anterior
-COPY --from=backend-builder /backend /app
-
-# Configuração adicional conforme necessário
-WORKDIR /app
