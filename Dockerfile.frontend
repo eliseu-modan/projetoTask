@@ -18,10 +18,3 @@ COPY frontend .
 # Construir a aplicação frontend
 RUN npm build
 
-# Estágio final para criar a imagem do aplicativo
-FROM nginx:alpine
-
-# Copiar os arquivos construídos do estágio anterior
-COPY --from=frontend-builder frontend/ /usr/share/nginx/html
-
-# Configuração adicional conforme necessário
