@@ -16,3 +16,5 @@ RUN npm install --save
 # Copiar o restante dos arquivos do backend
 COPY backend .
 
+# Tornar o binário do nodemon executável
+RUN chmod +x node_modules/.bin/nodemon
