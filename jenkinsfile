@@ -1,30 +1,27 @@
 pipeline {
     agent any
     stages {
-        stage('Build da imagem Docker Frontend') {
+        stage('Build da imagem Docker') {
             steps {
                 script {
-                    sh 'docker buildx build -t frontend -f Dockerfile.frontend .'
-                }
-            }
-        }
-
-        stage('Build da imagem Docker backend') {
-            steps {
-                script {
+                    // Construir o backend
                     sh 'docker buildx build -t backend -f Dockerfile.backend .'
-                }
-            }
-        }
-
-        stage('Combine imagens') {
-            steps {
-                script {
+                    
+                    // Construir o frontend
+                    sh 'docker buildx build -t frontend -f Dockerfile.frontend .'
+                    
+                    // Criar contêineres temporários para cópia de artefatos
                     sh 'docker create --name frontend-container frontend'
                     sh 'docker create --name backend-container backend'
-                    sh 'docker cp frontend-container:/path/to/frontend/dist combined'
-                    sh 'docker cp backend-container:/path/to/backend/dist combined'
+                    
+                    // Copiar artefatos do frontend e do backend para o diretório 'combined'
+                    sh 'docker cp frontend-container:/frontend/ combined'
+                    sh 'docker cp backend-container:/backend/ combined'
+                    
+                    // Criar uma imagem combinada
                     sh 'docker build -t combined -f Dockerfile.combined .'
+                    
+                    // Remover contêineres temporários
                     sh 'docker rm frontend-container backend-container'
                 }
             }
@@ -47,4 +44,3 @@ pipeline {
         }
     }
 }
-
