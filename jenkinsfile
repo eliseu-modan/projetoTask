@@ -1,7 +1,15 @@
 pipeline {
     agent any
-stages{
-        stage('Build da imagem Docker Backend') {
+    stages {
+        stage('Build da imagem Docker Frontend') {
+            steps {
+                script {
+                    sh 'docker buildx build -t frontend -f Dockerfile.frontend .'
+                }
+            }
+        }
+
+        stage('Build da imagem Docker backend') {
             steps {
                 script {
                     sh 'docker buildx build -t backend -f Dockerfile.backend .'
@@ -9,19 +17,26 @@ stages{
             }
         }
 
-   stage('Combine imagens em um contêiner') {
-    steps {
-        script {
-            sh 'docker create --name backend-container backend'
-                    sh 'docker cp backend-container:/app/backend/ combined'
-
-            // Se precisar manter o contêiner em execução, adicione um comando que o mantenha suspenso.
-            sh 'docker run -d --name backend-container-suspended backend tail -f /dev/null'
+        stage('Combine imagens') {
+            steps {
+                script {
+                    sh 'docker create --name frontend-container frontend'
+                    sh 'docker create --name backend-container backend'
+                    sh 'docker cp frontend-container:/path/to/frontend/dist combined'
+                    sh 'docker cp backend-container:/path/to/backend/dist combined'
+                    sh 'docker build -t combined -f Dockerfile.combined .'
+                    sh 'docker rm frontend-container backend-container'
+                }
+            }
         }
-    }
-}
-              
-     
+
+        stage('Subir docker compose - tasks') {
+            steps {
+                script {
+                    sh 'docker-compose up --build -d'
+                }
+            }
+        }
 
         stage('Aguardar subida dos containers') {
             steps {
@@ -32,3 +47,4 @@ stages{
         }
     }
 }
+
