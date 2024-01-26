@@ -9,16 +9,18 @@ stages{
             }
         }
 
-        stage('Combine imagens em um contêiner') {
-            steps {
-                script {
-                    sh 'docker create --name backend-container backend'
+   stage('Combine imagens em um contêiner') {
+    steps {
+        script {
+            sh 'docker create --name backend-container backend'
                     sh 'docker cp backend-container:/app/backend/ combined'
-                    sh 'docker rm  backend-container'
-                }
-            }
-        }
 
+            // Se precisar manter o contêiner em execução, adicione um comando que o mantenha suspenso.
+            sh 'docker run -d --name backend-container-suspended backend tail -f /dev/null'
+        }
+    }
+}
+              
      
 
         stage('Aguardar subida dos containers') {
