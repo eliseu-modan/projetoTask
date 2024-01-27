@@ -63,14 +63,18 @@ pipeline {
                 }
             }
         }
-stage('testing-app Vitest') {
+stage('Install vitest') {
     steps {
         script {
-            // Navegar para o diretório 'frontend'
-            dir('frontend') {
-                // Executar os testes usando npm
-                sh 'npm test'
-            }
+            sh 'npm install -g vitest'
+        }
+    }
+}
+
+stage('Run Tests') {
+    steps {
+        script {
+            sh 'npm test'
         }
     }
 }
