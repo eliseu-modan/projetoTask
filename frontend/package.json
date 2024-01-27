@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@testing-library/user-event": "github:testing-library/user-event",
+    "@types/sinon": "^17.0.3",
     "animate.css": "^4.1.1",
     "antd": "^5.9.2",
     "axios": "^1.5.0",
@@ -25,6 +26,8 @@
     "react-dom": "^18.2.0",
     "react-license-plate": "^1.0.0",
     "react-router-dom": "^6.21.1",
+    "simon": "^0.2.3",
+    "sinon": "^17.0.1",
     "socket.io-client": "^4.7.2",
     "yarn": "^1.22.21"
   },
