@@ -63,6 +63,13 @@ pipeline {
                 }
             }
         }
+  stage('testing-app Vitest'){
+       steps{
+           script {
+                sh 'npm test'
+           }
+       }
+}
       stage('Sonarqube validation'){
          steps{
             script {
@@ -79,13 +86,7 @@ pipeline {
             withForQualityGate abortPipeline: false
         }
     }
-   stage('testing-app Vitest'){
-       steps{
-           script {
-                sh 'npm test'
-           }
-       }
-}
+ 
 
 
     }
