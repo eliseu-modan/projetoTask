@@ -63,21 +63,17 @@ pipeline {
                 }
             }
         }
-stage('Install vitest') {
+
+stage('Run Tests') {
     steps {
-        script {
-            sh 'npm install -g vitest'
+        dir("${WORKSPACE}/frontend") {
+            script {
+                sh 'npm test'
+            }
         }
     }
 }
 
-stage('Run Tests') {
-    steps {
-        script {
-            sh 'npm test'
-        }
-    }
-}
 
       stage('Sonarqube validation'){
          steps{
