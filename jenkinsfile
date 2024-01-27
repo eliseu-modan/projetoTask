@@ -66,13 +66,20 @@ pipeline {
 
 stage('Run Tests') {
     steps {
-        dir("${WORKSPACE}/frontend") {
-            script {
-                sh 'npm test'
+        script {
+            // Executa o Docker Compose
+            def exitCode = sh(script: 'docker-compose -f docker-compose.test.yml up --abort-on-container-exit', returnStatus: true)
+
+            // Verifica o código de saída
+            if (exitCode != 0) {
+                error 'Os testes falharam. Consulte os logs para obter mais detalhes.'
+            } else {
+                echo 'Os testes foram bem-sucedidos.'
             }
         }
     }
 }
+
 
 
       stage('Sonarqube validation'){
