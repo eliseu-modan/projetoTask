@@ -65,12 +65,12 @@ pipeline {
         }
 
 stage('Run Tests') {
-    steps {
-        script {
-            sh 'npm test'
+            steps {
+                script {
+                    sh 'cd /var/lib/jenkins/workspace/task/frontend && npm test'
+                }
+            }
         }
-    }
-}
 
       stage('Sonarqube validation'){
          steps{
