@@ -63,13 +63,6 @@ pipeline {
                 }
             }
         }
-stage('Install vitest') {
-    steps {
-        script {
-            sh 'npm install -g vitest'
-        }
-    }
-}
 
 stage('Run Tests') {
     steps {
