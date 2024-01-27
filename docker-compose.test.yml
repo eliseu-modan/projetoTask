@@ -1,0 +1,8 @@
+version: '3'
+services:
+  frontend-test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    volumes:
+      - ./frontend:/app
