@@ -63,13 +63,18 @@ pipeline {
                 }
             }
         }
-  stage('testing-app Vitest'){
-       steps{
-           script {
+stage('testing-app Vitest') {
+    steps {
+        script {
+            // Navegar para o diretório 'frontend'
+            dir('frontend') {
+                // Executar os testes usando npm
                 sh 'npm test'
-           }
-       }
+            }
+        }
+    }
 }
+
       stage('Sonarqube validation'){
          steps{
             script {
