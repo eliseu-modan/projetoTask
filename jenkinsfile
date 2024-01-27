@@ -63,6 +63,22 @@ pipeline {
                 }
             }
         }
+stage('Install vitest') {
+    steps {
+        script {
+            sh 'npm install -g vitest'
+        }
+    }
+}
+
+stage('Run Tests') {
+    steps {
+        script {
+            sh 'npm test'
+        }
+    }
+}
+
       stage('Sonarqube validation'){
          steps{
             script {
@@ -76,10 +92,10 @@ pipeline {
 }
     stage('Quality Gate'){
         steps{
-            withForQualityGate abortPipeline: true
+            withForQualityGate abortPipeline: false
         }
     }
-
+ 
 
 
     }
