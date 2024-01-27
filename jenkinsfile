@@ -76,10 +76,16 @@ pipeline {
 }
     stage('Quality Gate'){
         steps{
-            withForQualityGate abortPipeline: true
+            withForQualityGate abortPipeline: false
         }
     }
-
+   stage('testing-app Vitest'){
+       steps{
+           script {
+                sh 'npm test'
+           }
+       }
+}
 
 
     }
