@@ -8,3 +8,4 @@ npm install
 
 # Execute os testes
 npm test
+chmod +x teste.sh
