@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script {
                     // Adapte o caminho do script conforme necessário
-                    sh 'chmod +x teste.sh ./teste.sh '
+                    sh 'chmod +x  ./teste.sh '
                     sh './teste.sh'
                 }
             }
