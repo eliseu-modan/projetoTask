@@ -2,7 +2,7 @@ import { LoginOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import { Button, Form, Input, message } from "antd";
 import { FormItem } from "../../_commons";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useAuthentication } from "../../../contexts/authentication";
 import { ROUTE_PRIVATE_ROOT_PATH } from "../../../route/constants";
 import { useService } from "../../../contexts/service";
@@ -13,7 +13,7 @@ function LoginForm() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const { setAuthenticationAsync } = useAuthentication();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   async function onSubmit(values) {
     setLoading(true);
     try {
