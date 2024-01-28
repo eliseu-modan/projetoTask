@@ -63,13 +63,17 @@ pipeline {
                 }
             }
         }
- stage('Run Tests') {
-            steps {
-                script {
-                    sh 'npm test'
-                }
+stage('Run Tests') {
+    steps {
+        dir('./frontend') {
+            script {
+                sh 'npm install'  
+                sh 'npm test'    
             }
         }
+    }
+}
+
       stage('Sonarqube validation'){
          steps{
             script {
