@@ -68,7 +68,7 @@ pipeline {
             steps {
                 script {
                     dir('./frontend') {
-                        sh 'npm install'  // Instala as dependências, caso ainda não tenham sido instaladas
+                        sh 'npm ci'  // Instala as dependências, caso ainda não tenham sido instaladas
                         sh 'npm test'     // Executa os testes
                     }
                 }
