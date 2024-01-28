@@ -8,6 +8,8 @@ pipeline {
                 script {
                     // Adapte o caminho do script conforme necessário
                     sh 'chmod +x ./teste.sh'
+                    sh './teste.sh'
+
                     sh 'node --experimental-modules ./teste.sh'
                 }
             }
