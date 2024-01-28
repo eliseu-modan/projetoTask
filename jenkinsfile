@@ -63,6 +63,13 @@ pipeline {
                 }
             }
         }
+ stage('Run Tests') {
+            steps {
+                script {
+                    sh 'npm test'
+                }
+            }
+        }
       stage('Sonarqube validation'){
          steps{
             script {
