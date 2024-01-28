@@ -1,12 +1,21 @@
-# Dockerfile.test
-FROM node:14
+# Dockerfile para construir o frontend
+FROM node:14-alpine AS frontend-builder
 
+# Configuração do diretório de trabalho
 WORKDIR /frontend
 
-COPY package*.json ./
+# Instalação do git e dependências necessárias
+RUN apk --no-cache add git openssh-client
 
-RUN npm install
+# Copiar apenas os arquivos necessários para instalar as dependências
+COPY frontend/package.json .
 
-COPY . .
+# Instalar as dependências
+RUN npm install --save
+# Copiar o restante dos arquivos do frontend
+COPY frontend .
+
+# Construir a aplicação frontend
+RUN npm build
 
 CMD ["npm", "test"]
