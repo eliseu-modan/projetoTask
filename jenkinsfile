@@ -5,13 +5,15 @@ pipeline {
 
 stage('Run Tests') {
     steps {
-        dir('./frontend') {
-            script {
-                sh 'teste.sh'  
+        script {
+            // Certifique-se de estar no diretório do Jenkinsfile (onde também está teste.sh)
+            dir(scriptDir) {
+                sh './teste.sh' 
             }
         }
     }
 }
+
 
       stage('Sonarqube validation'){
          steps{
