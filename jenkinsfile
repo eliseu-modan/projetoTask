@@ -68,8 +68,7 @@ stage('Run Tests') {
     steps {
         dir('./frontend') {
             script {
-                sh 'npm install'  
-                sh 'npm test'    
+                sh './teste.sh'  
             }
         }
     }
