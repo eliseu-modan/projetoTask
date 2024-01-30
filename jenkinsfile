@@ -2,18 +2,34 @@ pipeline {
     agent any
     stages {
     
-stage('Install and Run Tests') {
-    steps {
-        script {
-            // Certifique-se de estar no diretório do Jenkinsfile (onde também está teste.sh)
-            dir('frontend') {
-                // Execute os comandos npm sem a necessidade de sudo
-                sh '/root/.nvm/versions/node/v14.21.3/bin/npm install'
-                sh '/root/.nvm/versions/node/v14.21.3/bin/npm test'
+pipeline {
+    agent any
+
+    stages {
+        stage('Install and Run Tests') {
+            steps {
+                script {
+                    // Certifique-se de estar no diretório do Jenkinsfile (onde também está teste.sh)
+                    dir('caminho/para/seu/diretorio/frontend') {
+                        // Adicione o usuário Jenkins ao grupo com permissões no diretório
+                        sh 'sudo usermod -aG jenkins jenkins'
+
+                        // Garanta permissões no diretório do projeto
+                        sh 'sudo chmod +rx /frontend'
+
+                        // Garanta permissões no binário do npm
+                        sh 'sudo chmod +x /root/.nvm/versions/node/v14.21.3/bin/npm'
+
+                        // Execute os comandos npm sem a necessidade de sudo
+                        sh '/root/.nvm/versions/node/v14.21.3/bin/npm install'
+                        sh '/root/.nvm/versions/node/v14.21.3/bin/npm test'
+                    }
+                }
             }
         }
     }
 }
+
 
     
 
