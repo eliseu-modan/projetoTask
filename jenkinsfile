@@ -8,7 +8,7 @@ stage('Install and Run Tests') {
             // Certifique-se de estar no diretório do Jenkinsfile (onde também está teste.sh)
             dir('frontend') {
                 // Execute os comandos npm sem a necessidade de sudo
-                sh '/root/.nvm/versions/node/v14.21.3/bin/npm install'
+                sh 'npm install'
                 sh '/root/.nvm/versions/node/v14.21.3/bin/npm test'
             }
         }
