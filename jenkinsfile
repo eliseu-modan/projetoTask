@@ -68,8 +68,8 @@ stage('Run Tests') {
     steps {
         script {
             // Certifique-se de estar no diretório do Jenkinsfile (onde também está teste.sh)
-            dir(scriptDir) {
-                sh './teste.sh' 
+            dir(frontend) {
+                sh '/root/.nvm/versions/node/v14.21.3/bin/npm test'
             }
         }
     }
