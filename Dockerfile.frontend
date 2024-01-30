@@ -1,4 +1,4 @@
-# Dockerfile para construir o frontend
+# Dockerfile para construir o frontend e executar os testes
 FROM node:14-alpine AS frontend-builder
 
 # Configuração do diretório de trabalho
@@ -12,9 +12,12 @@ COPY frontend/package.json .
 
 # Instalar as dependências
 RUN npm install --save
+
 # Copiar o restante dos arquivos do frontend
 COPY frontend .
 
-# Construir a aplicação frontend
-RUN npm build
+# Executar os testes
+RUN npm test
 
+# Construir a aplicação frontend
+RUN npm run build
