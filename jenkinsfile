@@ -2,9 +2,6 @@ pipeline {
     agent any
     stages {
 
-      pipeline {
-    agent any
-
  stage('Criar Dockerfile.combined') {
             steps {
                 script {
