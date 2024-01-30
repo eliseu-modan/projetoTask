@@ -1,11 +1,7 @@
 pipeline {
     agent any
     stages {
-    
-pipeline {
-    agent any
 
-    stages {
         stage('Install and Run Tests') {
             steps {
                 script {
@@ -27,8 +23,7 @@ pipeline {
                 }
             }
         }
-    }
-}
+    
 
 
     
