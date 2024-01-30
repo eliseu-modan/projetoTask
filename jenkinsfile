@@ -65,18 +65,22 @@ pipeline {
         }
 
 
+
         stage('Install and Run Tests') {
             steps {
                 script {
                     // Certifique-se de estar no diretório do Jenkinsfile (onde também está teste.sh)
-                    dir('caminho/para/seu/diretorio/frontend') {
-                        // Use o caminho completo para o npm
-                        sh '/root/.nvm/versions/node/v14.21.3/bin/npm install'
-                        sh '/root/.nvm/versions/node/v14.21.3/bin/npm test'
+                    dir('frontend') {
+                        // Use o caminho completo para o npm e execute como usuário Jenkins
+                        sh 'sudo -u jenkins /root/.nvm/versions/node/v14.21.3/bin/npm install'
+                        sh 'sudo -u jenkins /root/.nvm/versions/node/v14.21.3/bin/npm test'
                     }
                 }
             }
-}
+        }
+    
+
+
 
 
       stage('Sonarqube validation'){
