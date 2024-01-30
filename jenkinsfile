@@ -2,24 +2,7 @@ pipeline {
     agent any
     stages {
   
-        stage('Build and Test in Docker') {
-            steps {
-                script {
-                    // Construir a imagem Docker
-                    def dockerImage = docker.build('Dockerfile.test-frontend', '.')
-
-                    // Executar o contêiner Docker
-                    dockerImage.inside {
-                        // Comandos dentro do contêiner
-                        sh 'npm install'
-                        sh 'npm test'
-                    }
-                }
-            }
-        }
     
-
-
  stage('Criar Dockerfile.combined') {
             steps {
                 script {
@@ -76,16 +59,6 @@ pipeline {
                 }
             }
         }
-
-        stage('Aguardar subida dos containers') {
-            steps {
-                script {
-                    sh 'sleep 10'
-                }
-            }
-        }
-
-    
 
 
       stage('Sonarqube validation'){
