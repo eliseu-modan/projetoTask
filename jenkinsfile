@@ -66,14 +66,6 @@ pipeline {
 
 
 
-        stage('Aguardar subida dos containers') {
-            steps {
-                script {
-                    sh 'sleep 10'
-                }
-            }
-        }
-
 
       stage('Sonarqube validation'){
          steps{
@@ -91,6 +83,13 @@ pipeline {
             withForQualityGate abortPipeline: false
         }
     }
+    stage('Aguardar subida dos containers') {
+            steps {
+                script {
+                    sh 'sleep 10'
+                }
+            }
+        }
 
     }
 }
