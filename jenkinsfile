@@ -1,17 +1,24 @@
 pipeline {
     agent any
     stages {
-    stage('Build and Test in Docker') {
+  
+        stage('Build and Test in Docker') {
             steps {
                 script {
                     // Construir a imagem Docker
-                     docker 'build -t dockerfile.test-frontend' 
+                    def dockerImage = docker.build('dockerfile.test-frontend', '.')
 
                     // Executar o contêiner Docker
-                    sh 'docker run dockerfile.test-frontend'
+                    dockerImage.inside {
+                        // Comandos dentro do contêiner
+                        sh 'npm install'
+                        sh 'npm test'
+                    }
                 }
             }
         }
+    
+
 
  stage('Criar Dockerfile.combined') {
             steps {
