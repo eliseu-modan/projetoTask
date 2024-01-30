@@ -6,7 +6,7 @@ pipeline {
             steps {
                 script {
                     // Construir a imagem Docker
-                    def dockerImage = docker.build('dockerfile.test-frontend', '.')
+                    def dockerImage = docker.build('Dockerfile.test-frontend', '.')
 
                     // Executar o contêiner Docker
                     dockerImage.inside {
