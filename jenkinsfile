@@ -49,15 +49,21 @@ pipeline {
             }
         }
 
-        stage('Subir docker compose - build and testing') {
-            steps {
-                script {
-                    sh 'docker-compose up --build -d'
-                    sh 'docker-compose logs -f frontend'
+    stage('Subir docker compose - build and testing') {
+    steps {
+        script {
+            // Iniciar o ambiente do Docker Compose em modo detached
+            sh 'docker-compose up --build -d'
 
-                }
-            }
+            // Esperar um pouco para garantir que os testes foram concluídos
+            sleep time: 5, unit: 'MINUTES'
+
+            // Exibir os logs do contêiner do frontend
+            sh 'docker-compose logs frontend'
         }
+    }
+}
+
 
         stage('Aguardar subida dos containers') {
             steps {
