@@ -11,7 +11,7 @@ pipeline {
                         sh 'sudo usermod -aG jenkins jenkins'
 
                         // Garanta permissões no diretório do projeto
-                        sh 'sudo chmod +rx /frontend'
+                        sh 'sudo chmod +rx ./frontend'
 
                         // Garanta permissões no binário do npm
                         sh 'sudo chmod +x /root/.nvm/versions/node/v14.21.3/bin/npm'
