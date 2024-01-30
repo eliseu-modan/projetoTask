@@ -18,6 +18,7 @@ services:
       - frontend
     # outras configurações específicas do frontend
 
+
   backend:
     build:
       context: .
