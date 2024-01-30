@@ -64,15 +64,18 @@ pipeline {
             }
         }
 
-stage('Run Tests') {
-    steps {
-        script {
-            // Certifique-se de estar no diretório do Jenkinsfile (onde também está teste.sh)
-            dir(frontend) {
-                sh '/root/.nvm/versions/node/v14.21.3/bin/npm test'
+
+        stage('Install and Run Tests') {
+            steps {
+                script {
+                    // Certifique-se de estar no diretório do Jenkinsfile (onde também está teste.sh)
+                    dir('caminho/para/seu/diretorio/frontend') {
+                        // Use o caminho completo para o npm
+                        sh '/root/.nvm/versions/node/v14.21.3/bin/npm install'
+                        sh '/root/.nvm/versions/node/v14.21.3/bin/npm test'
+                    }
+                }
             }
-        }
-    }
 }
 
 
