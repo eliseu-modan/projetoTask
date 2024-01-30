@@ -5,7 +5,7 @@ pipeline {
             steps {
                 script {
                     // Construir a imagem Docker
-                     docker build -t dockerfile.test-frontend .
+                     docker 'build -t dockerfile.test-frontend' 
 
                     // Executar o contêiner Docker
                     sh 'docker run dockerfile.test-frontend'
