@@ -12,9 +12,9 @@ COPY frontend/package.json .
 
 # Instalar as dependências
 RUN npm install --save
+
 # Copiar o restante dos arquivos do frontend
 COPY frontend .
 
-# Construir a aplicação frontend
-RUN npm build
-
+# Comando padrão para iniciar o serviço frontend
+CMD ["yarn", "dev", "--host"]
