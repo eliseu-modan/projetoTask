@@ -1,0 +1,12 @@
+FROM node:20-alpine
+
+WORKDIR /tests
+
+# Copie os arquivos de teste e configurações
+COPY ./frontend .
+
+# Instale as dependências de teste
+RUN npm install
+
+# Comando padrão para executar os testes
+CMD ["npm", "test"]
