@@ -58,13 +58,7 @@ pipeline {
                 }
             }
         }
-
-
-
-
-
-
-      stage('Sonarqube validation'){
+      stage('Scanner e Validação SonarQube'){
          steps{
             script {
                  scannerHome = tool 'sonar-scanner';
