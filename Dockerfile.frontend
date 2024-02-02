@@ -17,4 +17,4 @@ RUN npm install --save
 COPY frontend .
 
 # Comando padrão para iniciar o serviço frontend
-CMD ["yarn", "test"]
+CMD npm test
