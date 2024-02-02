@@ -6,7 +6,10 @@ WORKDIR /tests
 COPY ./frontend .
 
 # Atualizar npm para a versão mais recente
-RUN npm install -g npm@10.4.0
+RUN npm install -g npm@latest
+
+# Defina a variável de ambiente NODE_OPTIONS
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # Instale as dependências de teste
 RUN npm install --force
