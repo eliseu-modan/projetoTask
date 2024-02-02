@@ -1,5 +1,5 @@
 # Dockerfile para construir o frontend
-FROM node:20-alpine AS frontend-builder
+FROM node:14-alpine AS frontend-builder
 
 # Configuração do diretório de trabalho
 WORKDIR /frontend
@@ -7,20 +7,8 @@ WORKDIR /frontend
 # Instalação do git e dependências necessárias
 RUN apk --no-cache add git openssh-client
 
-# Aumentar o limite de memória do Node.js
-ENV NODE_OPTIONS="--max-old-space-size=4096"
-
 # Copiar apenas os arquivos necessários para instalar as dependências
 COPY frontend/package.json .
-
-# Exibir a versão do npm antes da atualização
-RUN npm -v
-
-# Atualizar npm para a versão mais recente
-RUN npm install -g npm@10.4.0
-
-# Exibir a versão do npm após a atualização
-RUN npm -v
 
 # Instalar as dependências
 RUN npm install --save
