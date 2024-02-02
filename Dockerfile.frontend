@@ -1,5 +1,5 @@
 # Dockerfile para construir o frontend
-FROM node:20-alpine AS frontend-builder
+FROM node:18-alpine AS frontend-builder
 
 # Configuração do diretório de trabalho
 WORKDIR /frontend
