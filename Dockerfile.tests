@@ -1,0 +1,18 @@
+FROM node:20-alpine
+
+WORKDIR /tests
+
+# Copie os arquivos de teste e configurações
+COPY ./frontend .
+
+# Atualizar npm para a versão mais recente
+RUN npm install -g npm@latest
+
+# Defina a variável de ambiente NODE_OPTIONS
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+
+# Instale as dependências de teste
+RUN npm install --force
+
+# Comando padrão para executar os testes
+CMD npm test
