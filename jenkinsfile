@@ -60,15 +60,6 @@ pipeline {
         }
 
 
-  stage('Subir docker compose ') {
-    steps {
-        script {
-            // Iniciar o ambiente do Docker Compose
-            sh 'docker-compose up --build -d'
-        }
-    }
-}
-
 
 
 
