@@ -59,6 +59,20 @@ pipeline {
             }
         }
 
+ stage('Subir docker compose - build and testing') {
+    steps {
+        script {
+            // Iniciar o ambiente do Docker Compose
+            sh 'docker-compose up --build frontend-test'
+
+            // Aguardar até que o contêiner frontend-test seja encerrado
+            sh 'docker wait app_frontend-test_1'
+
+            // Exibir os logs do contêiner frontend-test
+            sh 'docker-compose logs frontend-test'
+        }
+    }
+}
 
 
 
