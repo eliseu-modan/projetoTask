@@ -15,4 +15,4 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN npm install --force
 
 # Comando padrão para executar os testes
-CMD ["npm", "test"]
+CMD npm test
