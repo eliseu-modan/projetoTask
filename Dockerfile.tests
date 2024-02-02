@@ -9,7 +9,7 @@ COPY ./frontend .
 RUN npm install -g npm@10.4.0
 
 # Instale as dependências de teste
-RUN npm install
+RUN npm install --force
 
 # Comando padrão para executar os testes
 CMD ["npm", "test"]
