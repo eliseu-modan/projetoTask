@@ -12,10 +12,9 @@ services:
   frontend-test:
     build:
       context: .
-      dockerfile: Dockerfile.frontend
+      dockerfile: Dockerfile.tests
     command: npm test
-    depends_on:
-      - frontend
+    
     # outras configurações específicas do frontend
 
 
