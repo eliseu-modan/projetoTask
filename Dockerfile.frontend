@@ -16,7 +16,7 @@ RUN npm install --save
 # Copiar o restante dos arquivos do frontend
 COPY frontend .
 
-CMD ["bash", "-c", "npm test && yarn dev --host"]
+CMD ["yarn" "dev" "--host"]
 
 
 
