@@ -13,6 +13,15 @@ ENV NODE_OPTIONS="--max-old-space-size=4096"
 # Copiar apenas os arquivos necessários para instalar as dependências
 COPY frontend/package.json .
 
+# Exibir a versão do npm antes da atualização
+RUN npm -v
+
+# Atualizar npm para a versão mais recente
+RUN npm install -g npm@10.4.0
+
+# Exibir a versão do npm após a atualização
+RUN npm -v
+
 # Instalar as dependências
 RUN npm install --save
 
