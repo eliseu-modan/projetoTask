@@ -56,8 +56,10 @@ stage('Criando diretório - docker ') {
                     // Remover contêineres temporários
                     sh 'docker rm fronte backe'
                    
-                     // Excluir as pastas frontend e backend do diretório 'app'
-                    sh "rm -rf ${env.WORKSPACE}/app/frontend ${env.WORKSPACE}/app/backend"
+                   dir("${env.WORKSPACE}") {
+                     sh "rm -rf app/frontend"
+                     sh "rm -rf app/backend"
+                    }
                 }
             }
         }
