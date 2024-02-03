@@ -16,11 +16,5 @@ RUN npm install --save
 # Copiar o restante dos arquivos do frontend
 COPY frontend .
 
-# Copiar o script entrypoint.sh
-COPY entrypoint.sh .
-
-# Dar permissão de execução ao script
-RUN chmod +x entrypoint.sh
-
-# Comando padrão para executar o script entrypoint.sh
-CMD ["./entrypoint.sh"]
+# Comando padrão para iniciar o serviço frontend
+CMD ["yarn", "dev", "--host"]

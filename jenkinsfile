@@ -1,18 +1,70 @@
 pipeline {
     agent any
+
+
     stages {
-
-
-  stage('Subir docker compose ') {
-    steps {
-        script {
-            // Iniciar o ambiente do Docker Compose
-            sh 'docker-compose up --build -d'
+        stage('Iniciando a aplicação - docker-compose') {
+            steps {
+                script {
+                    // Iniciar o ambiente do Docker Compose
+                    sh 'docker-compose up --build -d'
+                }
+            }
         }
-    }
+
+stage('Construir e Executar Testes') {
+            steps {
+                script {
+                    // Construir a imagem Docker para os testes
+                    docker.image('node18-tester').withFileFrom('Dockerfile.teste', '.') {
+                        it.build()
+                    }
+
+                    // Executar o contêiner de teste
+                    def containerId = docker.image('node18-tester').run('-d -t node18-tester-teste')
+
+                    // Salvar o ID do contêiner para uso posterior
+                    env.TEST_CONTAINER_ID = containerId.trim()
+
+                    // Aguarde alguns segundos para garantir que o contêiner tenha tempo de iniciar
+                    sleep(10)
+
+                    // Rodar os testes
+                    sh "docker exec ${env.TEST_CONTAINER_ID} npm test"
+                }
+            }
+        }
+
+
+stage('Testes Unitários') {
+            steps {
+                script {
+                    // Executar testes unitários do frontend
+                    dir('frontend') {
+                        sh 'npm test'
+                    }
+}
+}
 }
 
- stage('Criar Dockerfile.combined') {
+        stage('Escaneando a qualidade do código - SonarQube') {
+            steps {
+                script {
+                    scannerHome = tool 'sonar-scanner';
+                }
+                withSonarQubeEnv('sonar-server') {
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=app -Dsonar.sources=. -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.login=${env.SONAR_AUTH_TOKEN}"
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                waitForQualityGate abortPipeline: false
+            }
+        }
+
+        stage('Criando diretório - docker') {
             steps {
                 script {
                     def dockerfileContent = """
@@ -33,7 +85,7 @@ pipeline {
             }
         }
 
-        stage('Build da imagem Docker') {
+        stage('Empacotando aplicação - docker') {
             steps {
                 script {
                     // Construir o backend
@@ -55,47 +107,16 @@ pipeline {
                     
                     // Remover contêineres temporários
                     sh 'docker rm fronte backe'
+                    
+                    dir("${env.WORKSPACE}") {
+                        sh "ls -la app"  // Verifica o conteúdo do diretório 'app' antes da remoção
+                        sh "rm -r -f app/frontend"
+                        sh "rm -r -f app/backend"
+                        sh "ls -la app"  // Verifica o conteúdo do diretório 'app' após a remoção
+                    }
                 }
             }
         }
-
-
-  stage('Subir docker compose ') {
-    steps {
-        script {
-            // Iniciar o ambiente do Docker Compose
-            sh 'docker-compose up --build -d'
-        }
-    }
 }
 
-
-
-
-
-      stage('Sonarqube validation'){
-         steps{
-            script {
-                 scannerHome = tool 'sonar-scanner';
-              }
-            withSonarQubeEnv('sonar-server'){
-                 sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=app -Dsonar.sources=. -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.login=${env.SONAR_AUTH_TOKEN}"
-            }
-       }
-
-}
-    stage('Quality Gate'){
-        steps{
-          waitForQualityGate abortPipeline: true
-        }
-    }
-    stage('Aguardar subida dos containers') {
-            steps {
-                script {
-                    sh 'sleep 10'
-                }
-            }
-        }
-
-    }
 }

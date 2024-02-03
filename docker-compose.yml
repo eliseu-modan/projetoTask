@@ -8,16 +8,6 @@ services:
     ports:
       - "5173:5173"
     # outras configurações específicas do frontend
-
-  #frontend-test:
-    #build:
-      #context: .
-      #dockerfile: Dockerfile.tests
-    #command: npm test
-    
-    # outras configurações específicas do frontend
-
-
   backend:
     build:
       context: .
