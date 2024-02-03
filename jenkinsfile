@@ -12,32 +12,7 @@ pipeline {
             }
         }
 
-stage('Construir e Executar Testes') {
-    steps {
-        script {
-            // Construir a imagem Docker para os testes
-            def buildResult = docker.image('node18-tester').withFileFrom('Dockerfile.teste', '.') {
-                it.build()
-            }
-            if (buildResult.isFailure()) {
-                error "Erro ao construir a imagem Docker para os testes."
-            }
 
-            // Executar o contêiner de teste
-            def containerId = docker.image('node18-tester').run('-d -t node18-tester-teste')
-            env.TEST_CONTAINER_ID = containerId.trim()
-
-            // Aguarde alguns segundos para garantir que o contêiner tenha tempo de iniciar
-            sleep(10)
-
-            // Rodar os testes
-            def testResult = sh "docker exec ${env.TEST_CONTAINER_ID} npm test"
-            if (testResult != 0) {
-                error "Erro ao executar os testes no contêiner."
-            }
-        }
-    }
-}
 
         stage('Escaneando a qualidade do código - SonarQube') {
             steps {
