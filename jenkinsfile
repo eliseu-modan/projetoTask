@@ -99,20 +99,10 @@ stage('Construir e Executar Testes') {
                     // Remover contêineres temporários
                     sh 'docker rm fronte backe'
                     
-                    dir("${env.WORKSPACE}") {
-                        sh "ls -la app"  // Verifica o conteúdo do diretório 'app' antes da remoção
-                        sh "rm -r -f app/frontend"
-                        sh "rm -r -f app/backend"
-                        sh "ls -la app"  // Verifica o conteúdo do diretório 'app' após a remoção
                     }
                 }
             }
         }
-<<<<<<< HEAD
-}
-
-}
-=======
 }
 
 }
@@ -121,18 +111,3 @@ stage('Construir e Executar Testes') {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 80c7395f5e3c0c31364c5121687253c6974f1bc6
