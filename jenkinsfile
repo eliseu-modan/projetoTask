@@ -57,8 +57,8 @@ stage('Criando diretório - docker ') {
                     sh 'docker rm fronte backe'
                    
                    dir("${env.WORKSPACE}") {
-                     sh "rm -rf app/frontend"
-                     sh "rm -rf app/backend"
+                     sh "sudo rm -r -rf app/frontend"
+                     sh "sudo rm -r -rf app/backend"
                     }
                 }
             }
