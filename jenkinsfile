@@ -101,7 +101,7 @@ stage('Construir e Executar Testes') {
                     
                     }
                 }
-            }
+            
         }
 }
 
