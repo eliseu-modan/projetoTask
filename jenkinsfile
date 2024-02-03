@@ -36,16 +36,7 @@ stage('Construir e Executar Testes') {
         }
 
 
-stage('Testes Unitários') {
-            steps {
-                script {
-                    // Executar testes unitários do frontend
-                    dir('frontend') {
-                        sh 'npm test'
-                    }
-}
-}
-}
+
 
         stage('Escaneando a qualidade do código - SonarQube') {
             steps {
