@@ -12,53 +12,52 @@ pipeline {
 }
 
  
- stage('Criar Dockerfile.combined') {
-    steps {
-        script {
-            def dockerfileContent = """
-                # Dockerfile.combined gerado dinamicamente
-                FROM backend
-                COPY ./combined /app
-            """
-            def dockerfilePath = "${env.WORKSPACE}/Dockerfile.combined"
+stage('Criar Dockerfile.combined') {
+            steps {
+                script {
+                    def dockerfileContent = """
+                        # Dockerfile.combined gerado dinamicamente
+                        FROM backend
+                        COPY ./combined /app
+                    """
+                    def dockerfilePath = "${env.WORKSPACE}/Dockerfile.combined"
 
-            // Verifica se o arquivo existe e o exclui se existir
-            if (fileExists(dockerfilePath)) {
-                sh "rm ${dockerfilePath}"
+                    // Verifica se o arquivo existe e o exclui se existir
+                    if (fileExists(dockerfilePath)) {
+                        sh "rm ${dockerfilePath}"
+                    }
+
+                    // Cria o novo Dockerfile.combined
+                    writeFile file: dockerfilePath, text: dockerfileContent
+                }
             }
-
-            // Cria o novo Dockerfile.combined
-            writeFile file: dockerfilePath, text: dockerfileContent
         }
-    }
-}
 
-stage('Build da imagem Docker') {
-    steps {
-        script {
-            // Construir o backend (exemplo, ajuste conforme necessário)
-            sh 'docker buildx build -t backend -f Dockerfile.backend .'
-            
-            // Construir o frontend (exemplo, ajuste conforme necessário)
-            sh 'docker buildx build -t frontend -f Dockerfile.frontend .'
-            
-            // Criar contêineres temporários para cópia de artefatos
-            sh 'docker create --name fronte frontend'
-            sh 'docker create --name backe backend'
-            
-            // Copiar artefatos do frontend e do backend para o diretório 'combined'
-            sh 'docker cp fronte:/frontend/ combined'
-            sh 'docker cp backe:/backend/ combined'
-            
-            // Remover contêineres temporários
-            sh 'docker rm fronte backe'
-            
-            // Criar o diretório 'app' no workspace e copiar 'combined' para dentro
-            sh 'mkdir ${env.WORKSPACE}/app'
-            sh 'cp -r ${env.WORKSPACE}/combined ${env.WORKSPACE}/app/'
+        stage('Build da imagem Docker') {
+            steps {
+                script {
+                    // Construir o backend
+                    sh 'docker buildx build -t backend -f Dockerfile.backend .'
+                    
+                    // Construir o frontend
+                    sh 'docker buildx build -t frontend -f Dockerfile.frontend .'
+                    
+                    // Criar contêineres temporários para cópia de artefatos
+                    sh 'docker create --name fronte frontend'
+                    sh 'docker create --name backe backend'
+                    
+                    // Copiar artefatos do frontend e do backend para o diretório 'combined'
+                    sh 'docker cp fronte:/frontend/ combined'
+                    sh 'docker cp backe:/backend/ combined'
+                    
+                    // Construir a imagem combinada
+                    sh 'docker build -t combined -f Dockerfile.combined .'
+                    
+                    // Remover contêineres temporários
+                    sh 'docker rm fronte backe'
+                }
+            }
         }
-    }
-}
 
       stage('Scanner e Validação SonarQube'){
          steps{
