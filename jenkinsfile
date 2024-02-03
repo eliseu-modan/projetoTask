@@ -18,6 +18,9 @@ stage('Testes Unitários') {
                     dir('frontend') {
                         sh 'npm test'
                     }
+}
+}
+}
 
         stage('Escaneando a qualidade do código - SonarQube') {
             steps {
