@@ -56,10 +56,13 @@ stage('Criando diretório - docker ') {
                     // Remover contêineres temporários
                     sh 'docker rm fronte backe'
                    
-                   dir("${env.WORKSPACE}") {
-                     sh "sudo rm -r -rf app/frontend"
-                     sh "sudo rm -r -rf app/backend"
-                    }
+                  dir("${env.WORKSPACE}") {
+                    sh "ls -la app"  // Verifica o conteúdo do diretório 'app' antes da remoção
+                    sh "rm -r -f app/frontend"
+                    sh "rm -r -f app/backend"
+                    sh "ls -la app"  // Verifica o conteúdo do diretório 'app' após a remoção
+}
+
                 }
             }
         }
