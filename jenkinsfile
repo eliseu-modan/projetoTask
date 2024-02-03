@@ -55,6 +55,9 @@ stage('Criar Dockerfile.combined') {
                     
                     // Remover contêineres temporários
                     sh 'docker rm fronte backe'
+                   
+                     // Excluir as pastas frontend e backend do diretório 'app'
+                    sh 'rm -rf ${env.WORKSPACE}/app/frontend ${env.WORKSPACE}/app/backend'
                 }
             }
         }
