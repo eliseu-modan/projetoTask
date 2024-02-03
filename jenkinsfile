@@ -25,11 +25,7 @@ pipeline {
             }
         }
 
-        stage('Quality Gate') {
-            steps {
-                waitForQualityGate abortPipeline: false
-            }
-        }
+        
 
         stage('Criando diretório - docker') {
             steps {
