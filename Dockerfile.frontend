@@ -17,8 +17,4 @@ RUN npm install --save
 COPY frontend .
 
 # Comando padrão para iniciar o serviço frontend
-<<<<<<< HEAD
 CMD ["yarn", "dev", "--host"]
-=======
-CMD ["yarn", "dev", "--host"]
->>>>>>> 80c7395f5e3c0c31364c5121687253c6974f1bc6
