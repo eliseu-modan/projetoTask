@@ -1,18 +1,34 @@
 pipeline {
     agent any
+
     stages {
-
- stage('Iniciando a aplicação - docker-compose') {
-    steps {
-        script {
-            // Iniciar o ambiente do Docker Compose
-            sh 'docker-compose up --build -d'
+        stage('Iniciando a aplicação - docker-compose') {
+            steps {
+                script {
+                    // Iniciar o ambiente do Docker Compose
+                    sh 'docker-compose up --build -d'
+                }
+            }
         }
-    }
-}
 
- 
-stage('Criando diretório - docker ') {
+        stage('Escaneando a qualidade do código - SonarQube') {
+            steps {
+                script {
+                    scannerHome = tool 'sonar-scanner';
+                }
+                withSonarQubeEnv('sonar-server') {
+                    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=app -Dsonar.sources=. -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.login=${env.SONAR_AUTH_TOKEN}"
+                }
+            }
+        }
+
+        stage('Quality Gate') {
+            steps {
+                waitForQualityGate abortPipeline: false
+            }
+        }
+
+        stage('Criando diretório - docker') {
             steps {
                 script {
                     def dockerfileContent = """
@@ -33,7 +49,7 @@ stage('Criando diretório - docker ') {
             }
         }
 
-        stage('empacotando aplicação - docker ') {
+        stage('Empacotando aplicação - docker') {
             steps {
                 script {
                     // Construir o backend
@@ -55,35 +71,35 @@ stage('Criando diretório - docker ') {
                     
                     // Remover contêineres temporários
                     sh 'docker rm fronte backe'
-                   
-                  dir("${env.WORKSPACE}") {
-                    sh "ls -la app"  // Verifica o conteúdo do diretório 'app' antes da remoção
-                    sh "rm -r -f app/frontend"
-                    sh "rm -r -f app/backend"
-                    sh "ls -la app"  // Verifica o conteúdo do diretório 'app' após a remoção
-}
-
+                    
+                    dir("${env.WORKSPACE}") {
+                        sh "ls -la app"  // Verifica o conteúdo do diretório 'app' antes da remoção
+                        sh "rm -r -f app/frontend"
+                        sh "rm -r -f app/backend"
+                        sh "ls -la app"  // Verifica o conteúdo do diretório 'app' após a remoção
+                    }
                 }
             }
         }
-
-      stage('Escaneando a qualidade do código - SonarQube'){
-         steps{
-            script {
-                 scannerHome = tool 'sonar-scanner';
-              }
-            withSonarQubeEnv('sonar-server'){
-                 sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=app -Dsonar.sources=. -Dsonar.host.url=${env.SONAR_HOST_URL} -Dsonar.login=${env.SONAR_AUTH_TOKEN}"
-            }
-       }
+}
 
 }
-    stage('Quality Gate'){
-        steps{
-          waitForQualityGate abortPipeline: false
-        }
-    }
-   
 
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
