@@ -15,7 +15,7 @@ stage('Testes Unitários') {
             steps {
                 script {
                     // Executar testes unitários do frontend
-                    dir('frontend') {
+                    dir('./frontend') {
                         sh 'npm test'
                     }
 }
