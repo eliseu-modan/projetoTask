@@ -2,7 +2,7 @@ pipeline {
     agent any
     stages {
 
- stage('Subir docker compose - build and testing') {
+ stage('Iniciando a aplicação - docker-compose') {
     steps {
         script {
             // Iniciar o ambiente do Docker Compose
@@ -12,7 +12,7 @@ pipeline {
 }
 
  
-stage('Criar Dockerfile.combined') {
+stage('Criando diretório - docker ') {
             steps {
                 script {
                     def dockerfileContent = """
@@ -33,7 +33,7 @@ stage('Criar Dockerfile.combined') {
             }
         }
 
-        stage('Build da imagem Docker') {
+        stage('empacotando aplicação - docker ') {
             steps {
                 script {
                     // Construir o backend
@@ -57,12 +57,12 @@ stage('Criar Dockerfile.combined') {
                     sh 'docker rm fronte backe'
                    
                      // Excluir as pastas frontend e backend do diretório 'app'
-                    sh "rm -rf ${WORKSPACE}/app/frontend ${WORKSPACE}/app/backend"
+                    sh "rm -rf ${env.WORKSPACE}/app/frontend ${env.WORKSPACE}/app/backend"
                 }
             }
         }
 
-      stage('Scanner e Validação SonarQube'){
+      stage('Escaneando a qualidade do código - SonarQube'){
          steps{
             script {
                  scannerHome = tool 'sonar-scanner';
@@ -78,13 +78,7 @@ stage('Criar Dockerfile.combined') {
           waitForQualityGate abortPipeline: false
         }
     }
-    stage('Aguardar subida dos containers') {
-            steps {
-                script {
-                    sh 'sleep 10'
-                }
-            }
-        }
+   
 
     }
 }
