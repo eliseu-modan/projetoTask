@@ -80,6 +80,19 @@ pipeline {
                 }
             
         }
+                 stage('upload docker image'){
+                      steps{
+                         script{
+                           withCredentials([usernamePassword(credentialsId: 'nexus_user, usernPASSWORD')])ameVariable: 'USERNAME', passwordVariable: '{
+                             sh 'docker login -u $USERNAME -p $PASSWORD ${NEXUS_URL}'
+                             sh 'docker tag app:latest ${NEXUS_URL}/app'
+                             sh 'docker push ${NEXUS_URL}/app'
+                        }
+                      }
+                    }
+                 }
+
+
 }
 
 }
