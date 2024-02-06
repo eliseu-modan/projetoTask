@@ -81,7 +81,7 @@ pipeline {
                          script{
                            withCredentials([usernamePassword(credentialsId: 'nexus_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
                              sh 'docker login -u $USERNAME -p $PASSWORD ${NEXUS_URL}'
-                             sh 'docker tag combined:latest ${NEXUS_URL}/app'
+                             sh 'docker tag combined:latest ${NEXUS_URL}/combined'
                              sh 'docker push ${NEXUS_URL}/combined'
                         }
                       }
