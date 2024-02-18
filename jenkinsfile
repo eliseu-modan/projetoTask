@@ -76,7 +76,7 @@ pipeline {
                 }
             
         }
-                 stage('upload docker image'){
+                 stage('upload docker image Nexus'){
                       steps{
                          script{
                            withCredentials([usernamePassword(credentialsId: 'nexus_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
