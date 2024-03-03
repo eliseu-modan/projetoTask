@@ -12,54 +12,54 @@ import { PageEventsProvider } from "../../contexts";
 import { usePageEvents } from "../../contexts/pageEvents";
 
 function CardsPage({ route, ...props }) {
-	const [modalVisible, setModalVisible] = useState(false);
-	const [selectedCard, setSelectedCard] = useState();
-	const { setReloadList } = usePageEvents();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedCard, setSelectedCard] = useState();
+  const { setReloadList } = usePageEvents();
 
-	function toggleModal() {
-		if (modalVisible) {
-			setSelectedCard(undefined);
-		}
-		setModalVisible(!modalVisible);
-	}
+  function toggleModal() {
+    if (modalVisible) {
+      setSelectedCard(undefined);
+    }
+    setModalVisible(!modalVisible);
+  }
 
-	function onEdit(card) {
-		setSelectedCard(card);
-		toggleModal();
-	}
+  function onEdit(card) {
+    setSelectedCard(card);
+    toggleModal();
+  }
 
-	function onSuccess() {
-		toggleModal();
-		setReloadList();
-	}
+  function onSuccess() {
+    toggleModal();
+    setReloadList();
+  }
 
-	return (
-		<Card className="container">
-			<div className="margin-bottom">
-				<CardsFilter onCreate={toggleModal} />
-			</div>
+  return (
+    <Card className="container">
+      <div className="margin-bottom">
+        <CardsFilter onCreate={toggleModal} />
+      </div>
 
-			<CardsList onEdit={onEdit} />
+      <CardsList onEdit={onEdit} />
 
-			<Modal
-				className="fullscreen-mobile"
-				open={modalVisible}
-				onCancel={toggleModal}
-				destroyOnClose
-				title={!!selectedCard ? "Editar Usuario" : "Adicionar Usuario"}
-				footer={null}
-			>
-				{modalVisible && (
-					<CardsForm
-						onSuccess={onSuccess}
-						card={selectedCard}
-						isEditMode={!!selectedCard} // Passando isEditMode para CardsForm
-						visible={modalVisible}
-					/>
-				)}
-			</Modal>
-		</Card>
-	);
+      <Modal
+        className="fullscreen-mobile"
+        open={modalVisible}
+        onCancel={toggleModal}
+        destroyOnClose
+        title={!!selectedCard ? "Editar Usuario" : "Adicionar Usuario"}
+        footer={null}
+      >
+        {modalVisible && (
+          <CardsForm
+            onSuccess={onSuccess}
+            card={selectedCard}
+            isEditMode={!!selectedCard}
+            visible={modalVisible}
+          />
+        )}
+      </Modal>
+    </Card>
+  );
 }
 
 export default withContext(PageEventsProvider)(CardsPage);

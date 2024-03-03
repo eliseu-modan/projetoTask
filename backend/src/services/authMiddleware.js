@@ -16,7 +16,7 @@ function authenticateToken(req, res, next) {
   try {
     const decodedToken = jwt.verify(token, secretKey);
     req.user = decodedToken;
-    next(); // Prossiga para a próxima rota/middleware
+    next();
   } catch (error) {
     console.error("Token inválido:", error);
     return res

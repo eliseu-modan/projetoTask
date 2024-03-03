@@ -2,9 +2,10 @@ const bcrypt = require("bcryptjs");
 const prisma = require("../importPrisma");
 const jwt = require("jsonwebtoken");
 const CreateTasks = require("./CreateTasks");
-const { SignOptions, Secret } = jwt;
 const config = require("config");
 const Admin = require("../services/authAdmin");
+
+let userId = null; // Inicializa userId como null
 
 function generateJwtToken(userId, expirationTimeInSeconds) {
   try {
@@ -22,7 +23,6 @@ function generateJwtToken(userId, expirationTimeInSeconds) {
     throw error;
   }
 }
-
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -37,12 +37,11 @@ const login = async (req, res) => {
       console.log("EMAIL NÃO ENCONTRADO");
       return res.status(401).json({ message: "Usuário não encontrado" });
     }
-
     const passwordMatch = await bcrypt.compare(password, verifyUser.password);
     if (!passwordMatch) {
       return res.status(401).json({ message: `Senha Incorreta` });
     } else {
-      const userId = verifyUser.id;
+      userId = verifyUser.id;
 
       const userWithAdminInfo = await prisma.createUser.findUnique({
         where: {
@@ -54,9 +53,8 @@ const login = async (req, res) => {
       });
       const isAdmin = userWithAdminInfo?.admin || false;
       await Admin.isAdminMiddleware(isAdmin);
-      const token = generateJwtToken(userId, 300);
+      const token = generateJwtToken(userId, 30000);
       CreateTasks.AssociationMessageId(userId);
-      CreateTasks.create(req, res);
 
       return res
         .status(200)
@@ -64,12 +62,9 @@ const login = async (req, res) => {
     }
   } catch (error) {
     console.error("Erro durante a autenticação:", error);
-
-    // Envie uma resposta de erro ao frontend
     return res.status(500).json({ message: "Erro durante a autenticação" });
   }
 };
-
 module.exports = {
   login,
 };

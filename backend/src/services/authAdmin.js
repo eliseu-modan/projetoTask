@@ -1,9 +1,7 @@
-// Em authAdmin.js
 let isAdmin = false;
 
 exports.isAdminMiddleware = async function (isAdminParam) {
   isAdmin = isAdminParam;
-  // Adiciona um pequeno atraso para garantir que a configuração seja concluída antes de prosseguir
   await new Promise((resolve) => setTimeout(resolve, 0));
 };
 

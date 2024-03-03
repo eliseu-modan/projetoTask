@@ -1,7 +1,7 @@
 import {
   AUTH_STORAGE_DATA_KEY,
   AUTH_STORAGE_ACCESS_TOKEN_KEY,
-} from './constants';
+} from "./constants";
 
 class AuthStorageManager {
   storageManager;
@@ -15,12 +15,12 @@ class AuthStorageManager {
       try {
         this.storageManager.setItem(
           AUTH_STORAGE_DATA_KEY,
-          auth.authData ? JSON.stringify(auth.authData) : '',
+          auth.authData ? JSON.stringify(auth.authData) : ""
         );
 
         this.storageManager.setItem(
           AUTH_STORAGE_ACCESS_TOKEN_KEY,
-          auth.accessToken || '',
+          auth.accessToken || ""
         );
 
         resolve();
@@ -35,7 +35,7 @@ class AuthStorageManager {
       try {
         const authData = this.storageManager.getItem(AUTH_STORAGE_DATA_KEY);
         const accessToken = this.storageManager.getItem(
-          AUTH_STORAGE_ACCESS_TOKEN_KEY,
+          AUTH_STORAGE_ACCESS_TOKEN_KEY
         );
 
         resolve({

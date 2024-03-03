@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const prisma = require("../importPrisma");
 
 exports.register = async (req, res) => {
-  // Seu código de autenticação aqui
   try {
     const { email, password, admin } = req.body;
     const existingUser = await prisma.createUser.findUnique({
@@ -42,7 +41,6 @@ exports.getUsers = async (req, res) => {
       },
     };
 
-    // Verifica se search é uma string não vazia antes de aplicar o filtro
     if (typeof search === "string" && search.trim() !== "") {
       userQuery = {
         ...userQuery,
@@ -82,9 +80,6 @@ exports.editUser = async (req, res) => {
     const idUser = req.params.id;
     const newDataUser = req.body;
     const id = parseInt(idUser, 10);
-
-    // newDataUser.password = await bcrypt.hash(newDataUser.password, 10);
-
     const updatedUser = await prisma.createUser.update({
       where: { id: id },
       data: newDataUser,

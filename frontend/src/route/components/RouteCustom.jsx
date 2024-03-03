@@ -15,7 +15,7 @@ function RouteCustom({
 
   useEffect(() => {
     if (page) {
-      document.title = `${page.title} - GateKeeper SEG`;
+      document.title = `${page.title} - Tasks`;
     }
   }, [page]);
 
